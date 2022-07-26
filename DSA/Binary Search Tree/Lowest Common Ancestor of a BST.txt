@@ -1,0 +1,22 @@
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(root == NULL) return NULL;
+        
+        //both are in left
+        if(root->val < p->val && root->val < q->val){
+            return lowestCommonAncestor(root->right,p,q);
+        }
+
+        //both are in right
+        if(root->val > p->val && root->val > q->val){
+             return lowestCommonAncestor(root->left,p,q);
+        }
+        
+        //when p and q are present in left and right
+        //a child node is present where p and q are present on left and right side
+        //then return root
+        
+        return root;
+    }
+};

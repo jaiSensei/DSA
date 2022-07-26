@@ -1,0 +1,29 @@
+class Solution {
+public:
+    //create inorder vector which is sorted
+    void inorder(TreeNode* root,vector<int> &in){
+        if(root == NULL) return;
+        
+        inorder(root->left,in);
+        in.push_back(root->val);
+        inorder(root->right,in);
+    }
+    bool findTarget(TreeNode* root, int k) {
+        vector<int> instore;
+        inorder(root, instore);
+        
+        int i=0;
+        int j=instore.size()-1;
+
+        //two pointer approach after creating inorder vector
+        while(i<j){
+            int sum = instore[i] + instore[j];
+            
+            if(sum == k) return true;
+            
+            if(sum < k) i++;
+            if(sum > k) j--;
+        }
+        return false;
+    }
+};

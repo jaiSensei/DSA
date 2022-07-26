@@ -1,0 +1,30 @@
+class Solution {
+public:
+    void inorder(TreeNode* root, vector<int>& instore){
+        if(root == NULL) return;
+
+        inorder(root->left, instore);
+        instore.push_back(root->val);
+        inorder(root->right,instore);
+    }
+    
+    //recursivly left and right adding data
+    TreeNode* inordertobst(int s,int e, vector<int> &in){
+        if(s>e) return NULL;
+        
+        int mid = (s+e)/2;
+        
+        TreeNode* root = new TreeNode(in[mid]);    // creating mid element as root
+        
+        root->left = inordertobst(s,mid-1,in);
+        root->right = inordertobst(mid+1, e, in);
+        
+        return root;
+    }
+    TreeNode* balanceBST(TreeNode* root) {
+        vector<int> instore;
+        inorder(root, instore);
+        
+        return inordertobst(0,instore.size()-1,instore);
+    }
+};

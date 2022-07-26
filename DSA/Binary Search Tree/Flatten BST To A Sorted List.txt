@@ -1,0 +1,35 @@
+//inorder traversal and insertion in vector
+void inorder(TreeNode<int>* root, vector<int>& instore){
+    if(root == NULL) return;
+    
+    inorder(root->left, instore);
+    instore.push_back(root->data);
+    inorder(root->right,instore);
+}
+TreeNode<int>* flatten(TreeNode<int>* root)
+{
+    vector<int> instore;
+    inorder(root, instore);
+    
+    //creating a head root
+    TreeNode<int> *newroot = new TreeNode<int>(instore[0]);
+    
+    //Node to travers all vector elements and connect them
+    TreeNode<int>* curr = newroot;
+    int n = instore.size();
+    
+    //connecting all new nodes left null and right to next node
+    for(int i = 1 ; i<n; i++){
+        TreeNode<int>* temp = new TreeNode<int>(instore[i]);
+        
+        curr->left = NULL;
+        curr->right = temp;
+        curr = temp;
+    }
+    
+    //last node left and right nUll
+    curr->left = NULL;
+    curr->right = NULL;
+    
+    return newroot;
+}

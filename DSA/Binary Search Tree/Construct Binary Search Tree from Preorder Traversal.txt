@@ -1,0 +1,31 @@
+class Solution {
+public:
+    TreeNode* createbst(vector<int> &preorder,int mini, int maxa, int &i){
+        
+        //base case 1
+        if(i>=preorder.size()){
+            return NULL;
+        }
+        
+        //base case 2 if node data is out of range
+        //recursive loop returns using mini and maxa 
+        //also checks if range is correct or not
+        if(preorder[i] < mini || preorder[i] > maxa){
+            return NULL;
+        }
+        
+        TreeNode* root = new TreeNode(preorder[i++]);   //**i++ is important as it increments index in vector
+        
+        root->left = createbst(preorder, mini ,root->val,i);    //use diagram for mini and maxa values
+        root->right = createbst(preorder, root->val, maxa, i);
+        
+        return root;
+    }
+    TreeNode* bstFromPreorder(vector<int>& preorder) {
+      int mini = INT_MIN;
+        int maxa = INT_MAX;
+        
+        int i=0;
+        return createbst(preorder,mini, maxa, i);
+    }
+};
